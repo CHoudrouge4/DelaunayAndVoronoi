@@ -3,3 +3,4 @@
 
 CMakeFiles/del.exe.dir/src/main.cpp.o
  /home/christo/Library/Code/DelaunayAndVoronoi/src/main.cpp
+ include/triangulation.h
