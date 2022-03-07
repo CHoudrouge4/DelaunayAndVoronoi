@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wextra -g -O3   CMakeFiles/del.exe.dir/src/main.cpp.o  -o del.exe  /usr/lib/x86_64-linux-gnu/libGLEW.so -lGL -lsfml-graphics -lsfml-window -lsfml-system 

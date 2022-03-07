@@ -1,0 +1,3 @@
+/home/christo/Library/Code/DelaunayAndVoronoi/CMakeFiles/rebuild_cache.dir
+/home/christo/Library/Code/DelaunayAndVoronoi/CMakeFiles/edit_cache.dir
+/home/christo/Library/Code/DelaunayAndVoronoi/CMakeFiles/del.exe.dir
