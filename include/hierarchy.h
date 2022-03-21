@@ -10,7 +10,7 @@ struct triangle {
 };
 
 class hierarchy {
-  triangle root;
+  triangle* root;
   std::vector<double> points;
   int P_0;
 public:
@@ -23,4 +23,10 @@ public:
   bool is_above(const int a, const int b, const int p);
   bool is_lexico_larger(const int p, const int q);
 
+  double cross(const int a, const int b, const int c, const int d);
+  double orient(const int a, const int b, const int c);
+  void add_point(const int p);
+
+  void get_triangles(triangle * root, std::vector<triangle*> &results);
+  std::vector<triangle*> get_triangles();
 };

@@ -19,29 +19,33 @@ int main () {
   // triangulation t(file_name);
 
 //  auto pts = generate_points(10, -10.0, 10.0);
-  std::vector<double> pts = {0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.25, 0.25};
+  std::vector<double> pts = {0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.25, 0.5, 0.5, 0.7};
   hierarchy h;
-  h.init_root(1);
+  h.init_root(2);
   h.get_points(pts);
 
-  std::cout << "is in triangle: " << h.is_inside_triangle(0, 2, 4, 6) << std::endl;
+  std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 6) << std::endl;
+  std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 8) << std::endl;
+
   std::cout << "is above test: " << h.is_above(0, 4, 6) << std::endl;
   //triangulation t(pts);
 
-  // sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-  // sf::CircleShape shape(100.f);
-  // shape.setFillColor(sf::Color::Green);
-  // while (window.isOpen()) {
-  //   sf::Event event;
-  //   while (window.pollEvent(event)) {
-  //     if (event.type == sf::Event::Closed)
-  //       window.close();
-  //     }
-  //
-  //     window.clear();
-  //     window.draw(shape);
-  //     window.display();
-  // }
+   sf::RenderWindow window(sf::VideoMode(1000, 1000), "Delaunay Triangulation");
+   sf::CircleShape shape(100.f);
+   shape.setFillColor(sf::Color::Green);
+   while (window.isOpen()) {
+     sf::Event event;
+     while (window.pollEvent(event)) {
+       if (event.type == sf::Event::Closed)
+         window.close();
+       }
+
+       window.clear();
+       window.draw(shape);
+       // draw the triangles
+
+       window.display();
+   }
 
   return 0;
 }
