@@ -18,8 +18,15 @@ int main () {
   // std::string file_name = "test.in";
   // triangulation t(file_name);
 
-  auto pts = generate_points(10, -10.0, 10.0);
-  triangulation t(pts);
+//  auto pts = generate_points(10, -10.0, 10.0);
+  std::vector<double> pts = {0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.25, 0.25};
+  hierarchy h;
+  h.init_root(1);
+  h.get_points(pts);
+
+  std::cout << "is in triangle: " << h.is_inside_triangle(0, 2, 4, 6) << std::endl;
+  std::cout << "is above test: " << h.is_above(0, 4, 6) << std::endl;
+  //triangulation t(pts);
 
   // sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
   // sf::CircleShape shape(100.f);
