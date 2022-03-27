@@ -49,5 +49,5 @@ triangulation::triangulation(const std::vector<double> & pts): h() {
   find_p_zero();
   std::cout << "P_0 = (" << points[p_0] << ", " << points[p_0 + 1] << ")\n";
   h.init_root(p_0);
-  h.get_points(points);
+  h.add_points(points);
 }

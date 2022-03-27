@@ -28,7 +28,7 @@ double hierarchy::orient(const int a, const int b, const int c) {
 }
 
 // might need optimisation
-void hierarchy::get_points(std::vector<double> &pts) {
+void hierarchy::add_points(std::vector<double> &pts) {
   points = pts;
   std::cout << "printing hierarchy points" << std::endl;
   for (size_t i = 0; i < points.size(); ++i) {
@@ -57,7 +57,6 @@ bool hierarchy::is_above(const int a, const int b, const int p) {
   // double c = points[b + 1] - slope * points[b];
   // return (slope * points[p] + c) > 0;
   return orient(a, b, p) > 0;
-
 }
 
 bool hierarchy::is_inside_triangle(const int a, const int b, const int c, const int p) {
@@ -89,23 +88,35 @@ bool hierarchy::is_inside_triangle(const int a, const int b, const int c, const 
 triangle* hierarchy::locate_point(int p, triangle* root) {
   // root.a root.b root.c
   // is inside triangle
+  std::cout << "P: " << p << std::endl;
+  std::cout << "Locate Point: " << root->a << " " << root->b << " " << root->c << std::endl;
   if (is_inside_triangle(root->a, root->b, root->c, p)) {
-    int k = 0;
-    for (size_t i = 0; i < root->children.size(); ++i) {
-      if (root->children[0] != nullptr && is_inside_triangle(root->children[i]->a, root->children[i]->b, root->children[i]->c, p)) {
-        locate_point(p, root->children[0]);
-        break;
-      }
-      k++;
+
+    std::cout << "root size: " << root->children.size() << std::endl;
+    if (root->children.size() == 0) return root;
+    std::cout << "first triangle" << root->children[0]->a << " " << root->children[0]->b << " " << root->children[0]->c << std::endl;
+    if(is_inside_triangle(root->children[0]->a, root->children[0]->b, root->children[0]->c, p)) {
+
+        return locate_point(p, root->children[0]);
     }
-    if (k == 3) return root;
+
+    std::cout << "second triangle" << root->children[1]->a << " " << root->children[1]->b << " " << root->children[1]->c << std::endl;
+    if(is_inside_triangle(root->children[1]->a, root->children[1]->b, root->children[1]->c, p)) {
+        return locate_point(p, root->children[1]);
+    }
+
+    std::cout << "third triangle" << root->children[2]->a << " " << root->children[2]->b << " " << root->children[2]->c << std::endl;
+    if(is_inside_triangle(root->children[2]->a, root->children[2]->b, root->children[2]->c, p)) {
+      return locate_point(p, root->children[2]);
+    }
   }
   return nullptr;
 }
 
 void hierarchy::add_point(const int p) {
   triangle* t = locate_point(p, root);
-
+  if (t == nullptr) std::cout << "nullptr" << std::endl;
+  else std::cout << "we found t" << t->a << ' ' << t->b << ' ' << t->c << std::endl;
   triangle* first = new triangle();
   first->a = t->a;
   first->b = t->b;
@@ -144,5 +155,4 @@ std::vector<triangle*> hierarchy::get_triangles() {
   std::vector<triangle*> results;
   get_triangles(root, results);
   return results;
-
 }

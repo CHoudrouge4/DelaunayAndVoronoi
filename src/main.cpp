@@ -19,20 +19,30 @@ int main () {
   // triangulation t(file_name);
 
 //  auto pts = generate_points(10, -10.0, 10.0);
-  std::vector<double> pts = {0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.25, 0.5, 0.5, 0.7};
+  std::vector<double> pts = {0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.25, 0.5, 0.5, 0.2, 0.3, 0.3, 0.6, 0.2};
   hierarchy h;
   h.init_root(2);
-  h.get_points(pts);
+  h.add_points(pts);
 
-  std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 6) << std::endl;
-  std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 8) << std::endl;
+  h.add_point(0);
+  h.add_point(4);
+  h.add_point(6);
+  h.add_point(8);
+  h.add_point(10);
+  h.add_point(12);
 
-  std::cout << "is above test: " << h.is_above(0, 4, 6) << std::endl;
+
+  auto triangles = h.get_triangles();
+
+  // std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 6) << std::endl;
+  // std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 8) << std::endl;
+
+  //std::cout << "is above test: " << h.is_above(0, 4, 6) << std::endl;
   //triangulation t(pts);
 
    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Delaunay Triangulation");
    sf::CircleShape shape(100.f);
-   shape.setFillColor(sf::Color::Green);
+   //shape.setFillColor(sf::Color::Green);
    while (window.isOpen()) {
      sf::Event event;
      while (window.pollEvent(event)) {
@@ -41,7 +51,37 @@ int main () {
        }
 
        window.clear();
-       window.draw(shape);
+      // window.draw(shape);
+       //
+       int scale = 100;
+       for (int i = 0; i < triangles.size(); ++i) {
+         int a = triangles[i]->a;
+         int b = triangles[i]->b;
+         int c = triangles[i]->c;
+         if(a == -2) continue;
+         if(b == -1) continue;
+           sf::Vertex line1[] =
+            {
+                sf::Vertex(sf::Vector2f(pts[a]*scale + 100, pts[a + 1]*scale + 100)),
+                sf::Vertex(sf::Vector2f(pts[b]*scale + 100, pts[b + 1]*scale + 100))
+            };
+
+            window.draw(line1, 2, sf::Lines);
+            sf::Vertex line2[] =
+             {
+                 sf::Vertex(sf::Vector2f(pts[b]*scale + 100, pts[b + 1]*scale + 100)),
+                 sf::Vertex(sf::Vector2f(pts[c]*scale + 100, pts[c + 1]*scale + 100))
+             };
+
+             window.draw(line2, 2, sf::Lines);
+             sf::Vertex line3[] =
+              {
+                  sf::Vertex(sf::Vector2f(pts[c]*scale + 100, pts[c + 1]*scale + 100)),
+                  sf::Vertex(sf::Vector2f(pts[a]*scale + 100, pts[a + 1]*scale + 100))
+              };
+
+            window.draw(line3, 2, sf::Lines);
+       }
        // draw the triangles
 
        window.display();
