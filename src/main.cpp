@@ -1,3 +1,7 @@
+/*
+* Author: Nicolas Bourbaki
+*
+*/
 #include <iostream>
 #include <vector>
 #include "triangulation.h"
