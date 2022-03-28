@@ -23,7 +23,7 @@ int main () {
   // triangulation t(file_name);
 
 //  auto pts = generate_points(10, -10.0, 10.0);
-  std::vector<double> pts = {0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.25, 0.5, 0.5, 0.2, 0.3, 0.3, 0.6, 0.2};
+  std::vector<double> pts = {0.0, 0.0, 2.0, -2.0, 0, 1.0, 0.25, 0.5, 0.5, 0.2, 0.3, 0.3, 0.6, 0.2};
   hierarchy h;
   h.init_root(2);
   h.add_points(pts);
@@ -35,6 +35,8 @@ int main () {
   h.add_point(10);
   h.add_point(12);
 
+  auto center = h.circumcircle(0, 2, 4);
+  std::cout << "center " << center.first << ' ' << center.second << std::endl;
 
   auto triangles = h.get_triangles();
 
