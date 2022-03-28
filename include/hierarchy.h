@@ -1,4 +1,8 @@
 #include <vector>
+#define x first
+#define y second
+
+typedef std::pair<double, double> point;
 
 struct triangle {
   int a;
@@ -28,5 +32,10 @@ public:
   void add_point(const int p);
 
   void get_triangles(triangle * root, std::vector<triangle*> &results);
+  point mid_point(const int a, const int b) const;
   std::vector<triangle*> get_triangles();
+
+  double cross(const double vx, const double vy, const  int c) const;
+  double cross_d(const double vx, const double vy, const  double cx, const double cy) const;
+  point circumcircle(const int a, const int b, const int c);
 };

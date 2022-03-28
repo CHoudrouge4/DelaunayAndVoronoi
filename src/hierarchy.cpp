@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <cassert>
 
 void hierarchy::init_root(const int p_0) {
   root = new triangle();
@@ -11,7 +12,6 @@ void hierarchy::init_root(const int p_0) {
   P_0 = p_0;
   std::cout << "Root: " << root->a << " " << root->b << " " << root->c << '\n';
 }
-
 
 double hierarchy::cross(const int a, const int b, const  int c, const int d) {
   double x_ab = points[b] - points[a];
@@ -155,4 +155,54 @@ std::vector<triangle*> hierarchy::get_triangles() {
   std::vector<triangle*> results;
   get_triangles(root, results);
   return results;
+}
+
+point hierarchy::mid_point(const int a, const int b) const {
+  double mx = (points[a] + points[b])/2;
+  double my = (points[a + 1] + points[b + 1])/2;
+  return {mx, my};
+}
+
+double hierarchy::cross(const double vx, const double vy, const  int c) const {
+  return vx * points[c + 1] - vy * points[c];
+}
+
+double hierarchy::cross_d(const double vx, const double vy, const  double cx, const double cy) const {
+  return vx * cy - vy * cx;
+}
+
+point hierarchy::circumcircle(const int a, const int b, const int c) {
+  auto mid_ab = mid_point(a, b);
+  auto mid_ac = mid_point(a, c);
+
+  // double slope_mid_ab = (-1) * (points[b] - points[a])/(points[b + 1] - points[a + 1]);
+  // double b_ab = mid_ab.y - slope_mid_ab * mid_ab.x;
+  //
+  // double slope_mid_ac = (-1) * (points[c] - points[a])/(points[c + 1] - points[a + 1]);
+  // double b_ac = mid_ac.y - slope_mid_ac * mid_ac.x;
+  // line ab
+  double vx = points[b] - points[a];
+  double vy = points[b + 1] - points[a + 1];
+  double cab = cross(vx, vy, a);
+
+  // line perp to ab
+  double pvx = -vy;
+  double pvy = vx;
+  double cpv = cross_d(pvx, pvy, mid_ab.x, mid_ab.y);
+
+  // line by ac
+  double wx = points[c] - points[a];
+  double wy = points[c + 1] - points[a + 1];
+  double cac = cross(wx, wy, a);
+
+  // line perp to ac
+  double pwx = -wy;
+  double pwy = wx;
+  double cpw = cross_d(pwx, pwy, mid_ac.x, mid_ac.y);
+
+  double d = cross_d(pvx, pvy, pwx, pwy);
+
+  double inter_x = (cpv * pwx - cpw * pvx) / d;
+  double inter_y = (cpv * pwy - cpw * pvy) / d;
+  return {inter_x,  inter_y};
 }
