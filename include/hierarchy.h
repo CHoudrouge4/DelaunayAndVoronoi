@@ -8,9 +8,7 @@ struct triangle {
   int a;
   int b;
   int c;
-
   std::vector<triangle*> children;
-
 };
 
 class hierarchy {
@@ -37,5 +35,6 @@ public:
 
   double cross(const double vx, const double vy, const  int c) const;
   double cross_d(const double vx, const double vy, const  double cx, const double cy) const;
-  point circumcircle(const int a, const int b, const int c);
+  point circumcircle(const int a, const int b, const int c) const;
+  bool is_legal(const int a, const int b, const int c, const int d) const;
 };

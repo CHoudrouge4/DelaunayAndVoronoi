@@ -171,7 +171,7 @@ double hierarchy::cross_d(const double vx, const double vy, const  double cx, co
   return vx * cy - vy * cx;
 }
 
-point hierarchy::circumcircle(const int a, const int b, const int c) {
+point hierarchy::circumcircle(const int a, const int b, const int c) const {
   auto mid_ab = mid_point(a, b);
   auto mid_ac = mid_point(a, c);
 
@@ -205,4 +205,18 @@ point hierarchy::circumcircle(const int a, const int b, const int c) {
   double inter_x = (cpv * pwx - cpw * pvx) / d;
   double inter_y = (cpv * pwy - cpw * pvy) / d;
   return {inter_x,  inter_y};
+}
+
+// we have triangle abc with circumcircle computed we want to check if the point d is legal
+bool hierarchy::is_legal(const int a, const int b, const int c, const int d) const {
+  auto center = circumcircle(a, b, c);
+  double dx = (points[a] - center.x);
+  double dy = (points[a + 1] - center.y);
+  double raduis = dx*dx + dy * dy;
+
+  double dxc = (points[d] - center.x);
+  double dyc = (points[d + 1] - center.y);
+  double distance = dxc * dxc + dyc * dyc;
+
+  return (raduis < distance);
 }

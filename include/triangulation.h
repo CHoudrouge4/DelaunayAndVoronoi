@@ -25,7 +25,6 @@ public:
   void triangulate();
   void compute_delaunay();
 
-
   std::vector<double> get_points() const;
   std::vector<edge> get_edges() const;
 };
