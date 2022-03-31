@@ -23,22 +23,23 @@ int main () {
   // triangulation t(file_name);
 
 //  auto pts = generate_points(10, -10.0, 10.0);
-  std::vector<double> pts = {0.0, 0.0, 5.0, +1.0, 0, 1.0, 0.25, 0.5, 0.5, 0.2, 0.3, 0.3, 0.6, 0.2};
-  hierarchy h;
-  h.init_root(2);
-  h.add_points(pts);
-
-  h.add_point(0);
-  h.add_point(4);
-  h.add_point(6);
-  h.add_point(8);
-  h.add_point(10);
-  h.add_point(12);
-
-  auto center = h.circumcircle(0, 2, 4);
-  std::cout << "center " << center.first << ' ' << center.second << std::endl;
+  //std::vector<double> pts = {0.0, 0.0, 1.0, -1.0, 0, 1.0, 0.25, 0.5, 0.5, 0.2, 0.3, 0.3, 2, -1};
+  std::vector<double> pts = {0.5, -1, 0.0, 0.0, 1.0, 0.0, 0.7, 3};
+  triangulation h(pts);
+  //h.init_root(2);
+  //h.add_points(pts);
+  // for (int i = 0; i < pts.size(); i += 2) {
+  //   h.add_point(i);
+  // }
+   h.compute_delaunay();
+  // auto center = h.circumcircle(0, 2, 4);
+  // std::cout << "center " << center.first << ' ' << center.second << std::endl;
 
   auto triangles = h.get_triangles();
+  for (int i = 0; i < triangles.size(); ++i) {
+    std::cout << "T: " << triangles[i]->vtx[0] << ' ' << triangles[i]->vtx[1] << ' ' << triangles[i]->vtx[2] << std::endl;
+  }
+  std::cout << "how many triangles? " << triangles.size() << '\n';
 
   // std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 6) << std::endl;
   // std::cout << "is in triangle: " << h.is_inside_triangle(4, -1, 2, 8) << std::endl;
@@ -61,9 +62,9 @@ int main () {
        //
        int scale = 100;
        for (int i = 0; i < triangles.size(); ++i) {
-         int a = triangles[i]->a;
-         int b = triangles[i]->b;
-         int c = triangles[i]->c;
+         int a = triangles[i]->vtx[0];
+         int b = triangles[i]->vtx[ccw(0)];
+         int c = triangles[i]->vtx[cw(0)];
          if(a == -2) continue;
          if(b == -1) continue;
            sf::Vertex line1[] =
