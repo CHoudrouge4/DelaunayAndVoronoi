@@ -23,21 +23,32 @@ int main () {
   // triangulation t(file_name);
 
 //  auto pts = generate_points(10, -10.0, 10.0);
-  //std::vector<double> pts = {0.0, 0.0, 1.0, -1.0, 0, 1.0, 0.25, 0.5, 0.5, 0.2, 0.3, 0.3, 2, -1};
-  std::vector<double> pts = {0.5, -1, 0.0, 0.0, 1.0, 0.0, 0.7, 3};
+  std::vector<double> pts = {0.0, 0.0, 100, -100, 0, 100, 25, 50, 50, 200, 30, 30, 200, -100};
+  //std::vector<double> pts = {50, -50, 0.0, 0.0, 100, 0.0, 70, 10, 90, 400};
   triangulation h(pts);
   //h.init_root(2);
   //h.add_points(pts);
   // for (int i = 0; i < pts.size(); i += 2) {
+  //   if(i == 4) continue;
   //   h.add_point(i);
   // }
-   h.compute_delaunay();
+
+
+  h.compute_delaunay();
   // auto center = h.circumcircle(0, 2, 4);
   // std::cout << "center " << center.first << ' ' << center.second << std::endl;
 
   auto triangles = h.get_triangles();
   for (int i = 0; i < triangles.size(); ++i) {
-    std::cout << "T: " << triangles[i]->vtx[0] << ' ' << triangles[i]->vtx[1] << ' ' << triangles[i]->vtx[2] << std::endl;
+    std::cout << "T: " << pts[triangles[i]->vtx[0]] << ' '<< pts[triangles[i]->vtx[0] + 1]
+    << ' ' << pts[triangles[i]->vtx[1]] << ' ' << pts[triangles[i]->vtx[1] + 1]
+    << ' ' << pts[triangles[i]->vtx[2]] << ' ' << pts[triangles[i]->vtx[2] + 1] << std::endl;
+    auto p = h.circumcircle(triangles[i]->vtx[0], triangles[i]->vtx[1], triangles[i]->vtx[2]);
+    std::cout << "center of T: " << p.x << ' ' << p.y << std::endl;
+    // for (int j = 0; j < 3; ++j)
+    //   if (triangles[i]->op[j] != nullptr) {
+    //     std::cout << "ad T: " << triangles[i]->op[j]->vtx[0] << ' ' << triangles[i]->op[j]->vtx[1] << ' ' << triangles[i]->op[j]->vtx[2] << std::endl;
+    //   }
   }
   std::cout << "how many triangles? " << triangles.size() << '\n';
 
@@ -49,7 +60,12 @@ int main () {
 
    sf::RenderWindow window(sf::VideoMode(1000, 1000), "Delaunay Triangulation");
    sf::CircleShape shape(100.f);
-   //shape.setFillColor(sf::Color::Green);
+   shape.setFillColor(sf::Color::Transparent);
+
+
+   // set a 10-pixel wide orange outline
+  shape.setOutlineThickness(1);
+  shape.setOutlineColor(sf::Color(250, 150, 100));
    while (window.isOpen()) {
      sf::Event event;
      while (window.pollEvent(event)) {
@@ -58,13 +74,20 @@ int main () {
        }
 
        window.clear();
-      // window.draw(shape);
+       window.draw(shape);
        //
-       int scale = 100;
+       int scale = 1;
        for (int i = 0; i < triangles.size(); ++i) {
          int a = triangles[i]->vtx[0];
          int b = triangles[i]->vtx[ccw(0)];
          int c = triangles[i]->vtx[cw(0)];
+         auto p = h.circumcircle(a, b, c);
+         double dx = (p.x * scale - pts[b] * scale);
+         double dy = (p.y * scale - pts[b + 1] * scale);
+         double radius = std::sqrt(dx*dx + dy * dy);
+         shape.setRadius(radius);
+         shape.setPosition(p.x * scale + 100 - radius, p.y*scale + 100 - radius);
+         window.draw(shape);
          if(a == -2) continue;
          if(b == -1) continue;
            sf::Vertex line1[] =

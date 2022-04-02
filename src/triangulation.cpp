@@ -7,6 +7,10 @@
 #include <cassert>
 #include <set>
 
+void print_triangle(triangle * t, std::string s) {
+  std::cout << s << ' ' << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
+}
+
 int cw(const int i) {
   return (i + 2) % 3;
 }
@@ -112,15 +116,19 @@ bool triangulation::is_inside_triangle(const int a, const int b, const int c, co
 
   // I think it is correct
   if (a == -2 && b == -1) {
-     if (is_lexico_larger(p, c)) return true;
+     if (points[p + 1] < points[c + 1]) return true;
      else return false;
   }
 
   // tested but it needs more testing
   if (a == -2 && c == p_0) {
-    if (is_lexico_larger(b , p) && is_above(b, p_0, p)) return true;
+    if (points[b + 1] < points[p + 1] && is_above(b, p_0, p)) return true;
     else return false;
   }
+
+  // if (a == -2) {
+  //   return is_lexico_larger(p, b) || is_lexico_larger(p, c);
+  // }
 
   // testing, What I am doing here
   if (b == -1 && c == p_0) {
@@ -137,16 +145,16 @@ bool triangulation::is_inside_triangle(const int a, const int b, const int c, co
 triangle* triangulation::locate_point(const int p, triangle* root) {
   // root.a root.b root.c
   // is inside triangle
-  std::cout << "P: " << p << std::endl;
-  std::cout << "Locate Point: " << root->vtx[0] << " " << root->vtx[ccw(0)] << " " << root->vtx[cw(0)] << std::endl;
+  //std::cout << "P: " << p << std::endl;
+//  std::cout << "Locate Point: " << root->vtx[0] << " " << root->vtx[ccw(0)] << " " << root->vtx[cw(0)] << std::endl;
   if (is_inside_triangle(root->vtx[0], root->vtx[ccw(0)], root->vtx[cw(0)], p)) {
 
-    std::cout << "root size: " << root->children.size() << std::endl;
+  //  std::cout << "root size: " << root->children.size() << std::endl;
     if (root->children.size() == 0) return root;
 
 
     for(int i = 0; i < root->children.size(); ++i) {
-      std::cout << "first triangle" << root->children[i]->vtx[0] << " " << root->children[i]->vtx[ccw(i)] << " " << root->children[i]->vtx[cw(0)] << std::endl;
+      //print_triangle(root->children[i], "testing triangle " + std::to_string(i));
       if(is_inside_triangle(root->children[i]->vtx[0], root->children[i]->vtx[ccw(0)], root->children[i]->vtx[cw(0)], p)) {
           return locate_point(p, root->children[i]);
       }
@@ -170,8 +178,16 @@ triangle* triangulation::locate_point(const int p, triangle* root) {
   return nullptr;
 }
 
+int get_oposite(triangle * t, int a, int b) {
+  std::cout << "a: " << a << " b: " << b << std::endl;
+  int op = 0;
+  while (a == t->vtx[op] || b ==  t->vtx[op]) op = cw(op);
+  return op;
+}
+
 triangle* triangulation::add_point(const int p) {
-  if (p == p_0) return root;
+  std::cout << "adding " << p << std::endl;
+  //if (p == p_0) return root;
   triangle* t = locate_point(p, root);
   if (t == nullptr) std::cout << "nullptr" << std::endl;
   else std::cout << "we found t" << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
@@ -181,6 +197,7 @@ triangle* triangulation::add_point(const int p) {
   first->vtx[ccw(0)] = t->vtx[ccw(0)];
   first->vtx[cw(0)] = p;
 
+  print_triangle(first, "first");
   t->children.push_back(first);
 
   // second triangle
@@ -189,6 +206,7 @@ triangle* triangulation::add_point(const int p) {
   second->vtx[ccw(0)] = t->vtx[ccw(0)];
   second->vtx[cw(0)] = t->vtx[cw(0)];
 
+  print_triangle(second, "second");
   t->children.push_back(second);
 
   // third triangle
@@ -197,27 +215,42 @@ triangle* triangulation::add_point(const int p) {
   third->vtx[ccw(0)] = p;
   third->vtx[cw(0)] = t->vtx[cw(0)];
   t->children.push_back(third);
-
+  print_triangle(third, "third");
 
   first->op[0] = second;
   first->op[ccw(0)] = third;
-  first->op[cw(0)] = root->op[cw(0)];
+  first->op[cw(0)] = t->op[cw(0)];
+  int op_index = get_oposite(t, 0, ccw(0));
+  if (t->op[cw(0)] != nullptr)
+   t->op[cw(0)]->op[op_index] = first;
 
-  second->op[0] = root->op[0];
+  second->op[0] = t->op[0];
   second->op[ccw(0)] = third;
   second->op[cw(0)] = first;
+  op_index = get_oposite(t, ccw(0), cw(0));
+  if (second->vtx[0] == 6 && second->vtx[1] == 2 && second->vtx[2] == 4){
+    std::cout << "op index for 6 2 4 " << op_index << std::endl;
+    print_triangle(t->op[0], "the oposite of 6 2 4");
+  }
+  if (t->op[0] != nullptr)
+    t->op[0]->op[op_index] = second;
 
   third->op[0] = second;
-  third->op[ccw(0)] = root->op[ccw(0)];
+  third->op[ccw(0)] = t->op[ccw(0)];
   third->op[cw(0)] = first;
+  op_index = get_oposite(t, cw(0), 0);
+  if (t->op[ccw(0)] != nullptr) t->op[ccw(0)]->op[op_index] = third;
 
   return t;
 }
 
+bool is_boundary_triangle(const int a, const int b, const int c) {
+  return ((a == -1 || b == -1 || c == -1) || (a == -2) || (b == -2) || (c == -2));
+}
 //we will optimise in the future
 void triangulation::get_triangles(triangle * root, std::vector<triangle*> &results) {
   if (root == nullptr) return;
-  if (root->children.size() == 0) {
+  if (root->children.size() == 0 && !is_boundary_triangle(root->vtx[0], root->vtx[1], root->vtx[2])) {
     results.push_back(root);
   } else {
     for(int i = 0; i < root->children.size(); ++i) {
@@ -248,15 +281,10 @@ double triangulation::cross_d(const double vx, const double vy, const  double cx
 }
 
 point triangulation::circumcircle(const int a, const int b, const int c) const {
+  std::cout << "computing circumcircle" << std::endl;
   auto mid_ab = mid_point(a, b);
   auto mid_ac = mid_point(a, c);
 
-  // double slope_mid_ab = (-1) * (points[b] - points[a])/(points[b + 1] - points[a + 1]);
-  // double b_ab = mid_ab.y - slope_mid_ab * mid_ab.x;
-  //
-  // double slope_mid_ac = (-1) * (points[c] - points[a])/(points[c + 1] - points[a + 1]);
-  // double b_ac = mid_ac.y - slope_mid_ac * mid_ac.x;
-  // line ab
   double vx = points[b] - points[a];
   double vy = points[b + 1] - points[a + 1];
   double cab = cross(vx, vy, a);
@@ -294,8 +322,12 @@ bool triangulation::is_legal(const int a, const int b, const int c, const int d)
   double dxc = (points[d] - center.x);
   double dyc = (points[d + 1] - center.y);
   double distance = dxc * dxc + dyc * dyc;
-
+  std::cout << "raduis: " << raduis << ' ' << distance << std::endl;
   return (raduis < distance);
+}
+
+bool legalizable(triangle * s, triangle *t) {
+  return !is_boundary_triangle(s->vtx[0], s->vtx[1], s->vtx[2]) && !is_boundary_triangle(t->vtx[0], t->vtx[1], t->vtx[2]);
 }
 
 void triangulation::compute_delaunay() {
@@ -303,29 +335,30 @@ void triangulation::compute_delaunay() {
      if (i == p_0) continue;
      triangle * t = add_point(i);
      triangle * first = t->children[0];
-
-     if (first->op[cw(0)] != nullptr)
+     if (first->op[cw(0)] != nullptr && legalizable(first, first->op[cw(0)])) {
       legalize(cw(0), first, first->op[cw(0)]);
-
+     }
      triangle * second = t->children[1];
-     if (second->op[0] != nullptr)
+    // print_triangle(second->op[0], "op of second ");
+     if (second->op[0] != nullptr && legalizable(second, second->op[0]))
        legalize(0, second, second->op[0]);
 
     triangle * third = t->children[2];
-    if(third->op[ccw(0)] != nullptr)
+    if(third->op[ccw(0)] != nullptr && legalizable(third, third->op[ccw(0)]))
       legalize(ccw(0), third, third->op[ccw(0)]);
    }
  }
 
-int get_oposite(triangle * t, int a, int b) {
-  int op = 0;
-  while (a == t->vtx[op] || b ==  t->vtx[op]) op = cw(0);
-  return op;
-}
+
 
 // p_index in s, it is 0 (second), cw(0) first, or ccw(0) third
 void triangulation::legalize(int p_index, triangle* s, triangle* t) {
+  std::cout << "legalizing" << std::endl;
+  print_triangle(s, "left legal");
+  print_triangle(t, "right legal");
   int op_index = get_oposite(t, s->vtx[cw(p_index)], s->vtx[ccw(p_index)]);
+  std::cout << "p_ index is " << p_index << ' ' << s->vtx[p_index] << std::endl;
+  std::cout << "we get the opposite index " << op_index << ' ' << t->vtx[op_index] << std::endl;
   if(!is_legal(s->vtx[p_index], s->vtx[cw(p_index)], s->vtx[ccw(p_index)], t->vtx[op_index])) {
     // create two new triangles
     triangle * r1 = new triangle();
@@ -338,9 +371,9 @@ void triangulation::legalize(int p_index, triangle* s, triangle* t) {
     r2->vtx[cw(0)] = t->vtx[op_index];
     r2->vtx[ccw(0)] = s->vtx[ccw(p_index)];
 
-    r1->op[0] = t->op[cw(op_index)];
+    r1->op[0] = t->op[ccw(op_index)];
     r1->op[cw(0)] = r2;
-    r1->op[ccw(0)] = s->op[ccw(p_index)];
+    r1->op[ccw(0)] = s->op[cw(p_index)];
 
     r2->op[0] = t->op[ccw(op_index)];
     r2->op[cw(0)] = s->op[cw(p_index)];
@@ -350,7 +383,13 @@ void triangulation::legalize(int p_index, triangle* s, triangle* t) {
     s->children.push_back(r2);
     t->children.push_back(r1);
     t->children.push_back(r2);
-    legalize(0, r1, r1->op[0]);
-    legalize(0, r2, r2->op[0]);
+
+    print_triangle(r1, "r1");
+//  print_triangle(t->op[ccw(op_index)], "r1 0 op");
+    print_triangle(r2, "r2");
+    if(legalizable(r1, r1->op[0]))
+      legalize(0, r1, r1->op[0]);
+    if (legalizable(r2, r2->op[0]))
+      legalize(0, r2, r2->op[0]);
   }
 }
