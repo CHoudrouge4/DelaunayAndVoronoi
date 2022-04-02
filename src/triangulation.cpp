@@ -116,14 +116,17 @@ bool triangulation::is_inside_triangle(const int a, const int b, const int c, co
 
   // I think it is correct
   if (a == -2 && b == -1) {
-     if (points[p + 1] < points[c + 1]) return true;
-     else return false;
+     if (is_lexico_larger(c , p)) return false;
+     else return true;
   }
 
   // tested but it needs more testing
-  if (a == -2 && c == p_0) {
-    if (points[b + 1] < points[p + 1] && is_above(b, p_0, p)) return true;
-    else return false;
+  if (a == -2) {
+    // if (points[b + 1] < points[p + 1 && is_above(b, p_0, p)) return true;
+    // else return false;
+    if (is_lexico_larger(c, p)) return false;
+    else if (is_above(c, b, p)) return false;
+    else return true;
   }
 
   // if (a == -2) {
@@ -131,9 +134,14 @@ bool triangulation::is_inside_triangle(const int a, const int b, const int c, co
   // }
 
   // testing, What I am doing here
-  if (b == -1 && c == p_0) {
-    std::cout << "left of AP? " << is_above(p_0, a, p) << std::endl;
-    if (is_lexico_larger(a, p) && is_above(p_0, a, p) && is_lexico_larger(p, p_0)) return true;
+  if (b == -1) {
+  //   std::cout << "left of AP? " << !is_above(a, p_0, p) << ' ' << is_lexico_larger(p, a) << ' ' << is_lexico_larger(p, p_0) << std::endl;
+  //   std::cout << points[p] << ' ' << points[p + 1] << ' ' << points[a] << ' ' << points[a + 1] << std::endl;
+  //   if (is_lexico_larger(p, a) && !is_above(a, p_0, p) && is_lexico_larger(p, p_0)) return true;
+  //   else return false;
+    if (is_above(a, c, p)) return false;
+    else if (is_lexico_larger(c, p)) return false;
+    else if (is_lexico_larger(a ,p)) return true;
     else return false;
   }
   // tested
@@ -154,7 +162,7 @@ triangle* triangulation::locate_point(const int p, triangle* root) {
 
 
     for(int i = 0; i < root->children.size(); ++i) {
-      //print_triangle(root->children[i], "testing triangle " + std::to_string(i));
+      print_triangle(root->children[i], "testing triangle " + std::to_string(i));
       if(is_inside_triangle(root->children[i]->vtx[0], root->children[i]->vtx[ccw(0)], root->children[i]->vtx[cw(0)], p)) {
           return locate_point(p, root->children[i]);
       }
@@ -281,7 +289,6 @@ double triangulation::cross_d(const double vx, const double vy, const  double cx
 }
 
 point triangulation::circumcircle(const int a, const int b, const int c) const {
-  std::cout << "computing circumcircle" << std::endl;
   auto mid_ab = mid_point(a, b);
   auto mid_ac = mid_point(a, c);
 
@@ -392,4 +399,8 @@ void triangulation::legalize(int p_index, triangle* s, triangle* t) {
     if (legalizable(r2, r2->op[0]))
       legalize(0, r2, r2->op[0]);
   }
+}
+
+int triangulation::get_p_0() {
+  return p_0;
 }

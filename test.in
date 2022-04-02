@@ -1,11 +1,35 @@
-5
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
+97.7756
+155.009
+-46.5113
+99.285
+-108.052
+191.987
+-115.9
+-148.15
+p_0 = (97.7756, 155.009)
+Root: -2 -1 0
+adding 0
+we found t-2 -1 0
+first -2 -1 0
+second 0 -1 0
+third -2 0 0
+a: 0 b: 1
+a: 1 b: 2
+a: 2 b: 0
+adding 2
+we found t-2 -1 0
+first -2 -1 2
+second 2 -1 0
+third -2 2 0
+a: 0 b: 1
+a: 1 b: 2
+a: 2 b: 0
+adding 6
+we found t-2 -1 2
+first -2 -1 6
+second 6 -1 2
+third -2 6 2
+a: 0 b: 1
+a: 1 b: 2
+a: 2 b: 0
+how many triangles? 0

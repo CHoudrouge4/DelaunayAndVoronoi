@@ -1,0 +1,51 @@
+-73.8302
+52.1448
+78.3013
+-62.202
+-48.915
+88.0688
+-71.441
+-24.043
+43.118
+35.6433
+65.1753
+-81.2785
+-54.8195
+72.6864
+39.3282
+-8.56568
+-28.3883
+68.5955
+-13.3095
+-16.3021
+p_0 = (78.3013, -62.202)
+Root: -2 -1 2
+adding 0
+we found t-2 -1 2
+first -2 -1 0
+second 0 -1 2
+third -2 0 2
+a: 0 b: 1
+a: 1 b: 2
+a: 2 b: 0
+adding 4
+left of AP? 0
+we found t-2 0 2
+first -2 0 4
+second 4 0 2
+third -2 4 2
+a: 0 b: 1
+a: 1 b: 2
+a: 2 b: 0
+adding 6
+we found t-2 -1 0
+first -2 -1 6
+second 6 -1 0
+third -2 6 0
+a: 0 b: 1
+a: 1 b: 2
+a: 2 b: 0
+adding 8
+Standard triangule test
+Standard triangule test
+nullptr

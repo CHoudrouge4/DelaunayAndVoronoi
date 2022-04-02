@@ -39,7 +39,7 @@ private:
 public:
   triangulation(const std::string &file_name);
   triangulation(const std::vector<double> & pts);
-  
+
 
   std::vector<double> get_points() const;
   std::vector<edge> get_edges() const;
@@ -60,4 +60,5 @@ public:
   bool is_legal(const int a, const int b, const int c, const int d) const;
   void compute_delaunay();
   void legalize(int p_index, triangle* s, triangle* t);
+  int get_p_0();
 };
