@@ -6,17 +6,10 @@
 #include <limits>
 #include <cassert>
 #include <set>
+#include <memory>
 
-void print_triangle(triangle * t, std::string s) {
+void print_triangle(std::shared_ptr<triangle> t, std::string s) {
   std::cout << s << ' ' << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
-}
-
-void standardize(triangle* t) {
-  for (int i = 0; i < 3; i++) {
-    if(t->vtx[i] == -2) {
-
-    }
-  }
 }
 
 int cw(const int i) { return (i + 2) % 3; }
@@ -62,7 +55,7 @@ triangulation::triangulation(const std::string& file_name) {
 }
 
 void triangulation::init_root() {
-  root = new triangle();
+  root = std::make_shared<triangle>();
   root->vtx[0] = -2;
   root->vtx[ccw(0)] = -1;
   root->vtx[cw(0)] = p_0;
@@ -140,7 +133,7 @@ void swap(int &a, int &b) {
   b = tmp;
 }
 
-triangle* triangulation::locate_point(const int p, triangle* root) {
+std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_ptr<triangle> root) {
 
   int a = root->vtx[0];
   int b = root->vtx[ccw(0)];
@@ -196,7 +189,7 @@ triangle* triangulation::locate_point(const int p, triangle* root) {
   return nullptr;
 }
 
-int get_oposite(triangle * t, int a, int b) {
+int get_oposite(std::shared_ptr<triangle> t, int a, int b) {
   std::cout << "a: " << a << " b: " << b << std::endl;
   int op = 0;
   while (a == t->vtx[op] || b ==  t->vtx[op]) op = cw(op);
@@ -204,15 +197,15 @@ int get_oposite(triangle * t, int a, int b) {
 }
 
 // it needs more checking
-triangle* triangulation::add_point(const int p) {
+std::shared_ptr<triangle> triangulation::add_point(const int p) {
   std::cout << "adding " << p << std::endl;
 
-  triangle* t = locate_point(p, root);
+  std::shared_ptr<triangle> t = locate_point(p, root);
   if (t == nullptr) std::cout << "nullptr" << std::endl;
   else std::cout << "we found t" << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
 
   // first triangle
-  triangle* first = new triangle();
+  std::shared_ptr<triangle> first = std::make_shared<triangle>();
   first->vtx[0] = t->vtx[0];
   first->vtx[ccw(0)] = t->vtx[ccw(0)];
   first->vtx[cw(0)] = p;
@@ -221,7 +214,7 @@ triangle* triangulation::add_point(const int p) {
   t->children.push_back(first);
 
   // second triangle
-  triangle* second =  new triangle();
+  std::shared_ptr<triangle> second =  std::make_shared<triangle>();
   second->vtx[0] = p;
   second->vtx[ccw(0)] = t->vtx[ccw(0)];
   second->vtx[cw(0)] = t->vtx[cw(0)];
@@ -230,7 +223,7 @@ triangle* triangulation::add_point(const int p) {
   t->children.push_back(second);
 
   // third triangle
-  triangle* third = new triangle();
+  std::shared_ptr<triangle> third = std::make_shared<triangle>();
   third->vtx[0] = t->vtx[0];
   third->vtx[ccw(0)] = p;
   third->vtx[cw(0)] = t->vtx[cw(0)];
@@ -277,7 +270,7 @@ bool is_boundary_triangle(const int a, const int b, const int c) {
 }
 
 //we will optimise in the future
-void triangulation::get_triangles(triangle * root, std::vector<triangle*> &results) {
+void triangulation::get_triangles(std::shared_ptr<triangle> root, std::vector<std::shared_ptr<triangle>> &results) {
   if (root == nullptr) return;
   if (root->children.size() == 0 && triangle_type(root->vtx[0], root->vtx[1], root->vtx[2]) == 0) {
     results.push_back(root);
@@ -289,8 +282,8 @@ void triangulation::get_triangles(triangle * root, std::vector<triangle*> &resul
 }
 
 //
-std::vector<triangle*> triangulation::get_triangles() {
-  std::vector<triangle*> results;
+std::vector<std::shared_ptr<triangle>> triangulation::get_triangles() {
+  std::vector<std::shared_ptr<triangle>> results;
   get_triangles(root, results);
   return results;
 }
@@ -361,7 +354,7 @@ bool triangulation::is_legal(const int a, const int b, const int c, const int d)
   return (raduis < distance);
 }
 
-bool triangulation::legalizable(int p, triangle * s, triangle *t) {
+bool triangulation::legalizable(int p, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t) {
   if (s == nullptr || t == nullptr) return false;
   if (!is_convex(p, s, t)) return false;
 
@@ -385,17 +378,17 @@ bool triangulation::legalizable(int p, triangle * s, triangle *t) {
 void triangulation::compute_delaunay() {
   for (size_t i = 0; i < points.size(); i += 2) {
      if (i == p_0) continue;
-     triangle * t = add_point(i);
-     triangle * first = t->children[0];
+     std::shared_ptr<triangle> t = add_point(i);
+     std::shared_ptr<triangle> first = t->children[0];
      if (first->op[cw(0)] != nullptr && legalizable(cw(0), first, first->op[cw(0)])) {
       legalize(cw(0), first, first->op[cw(0)]);
      }
-     triangle * second = t->children[1];
+    std::shared_ptr<triangle> second = t->children[1];
     // print_triangle(second->op[0], "op of second ");
      if (second->op[0] != nullptr && legalizable(0, second, second->op[0]))
        legalize(0, second, second->op[0]);
 
-    triangle * third = t->children[2];
+    std::shared_ptr<triangle> third = t->children[2];
     if(third->op[ccw(0)] != nullptr && legalizable(ccw(0), third, third->op[ccw(0)]))
       legalize(ccw(0), third, third->op[ccw(0)]);
    }
@@ -404,7 +397,7 @@ void triangulation::compute_delaunay() {
 
 
 // p_index in s, it is 0 (second), cw(0) first, or ccw(0) third
-void triangulation::legalize(int p_index, triangle* s, triangle* t) {
+void triangulation::legalize(int p_index, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t) {
   std::cout << "legalizing" << std::endl;
   print_triangle(s, "left legal");
   print_triangle(t, "right legal");
@@ -413,12 +406,12 @@ void triangulation::legalize(int p_index, triangle* s, triangle* t) {
   std::cout << "we get the opposite index " << op_index << ' ' << t->vtx[op_index] << std::endl;
   if(!is_legal(s->vtx[p_index], s->vtx[cw(p_index)], s->vtx[ccw(p_index)], t->vtx[op_index])) {
     // create two new triangles
-    triangle * r1 = new triangle();
+    std::shared_ptr<triangle> r1 = std::make_shared<triangle>();
     r1->vtx[0] = s->vtx[p_index];
     r1->vtx[cw(0)] = s->vtx[cw(p_index)];
     r1->vtx[ccw(0)] = t->vtx[op_index];
 
-    triangle * r2 = new triangle();
+    std::shared_ptr<triangle> r2 = std::make_shared<triangle>();
     r2->vtx[0] = s->vtx[p_index];
     r2->vtx[cw(0)] = t->vtx[op_index];
     r2->vtx[ccw(0)] = s->vtx[ccw(p_index)];
@@ -474,7 +467,7 @@ bool triangulation::is_convex(int a, int b, int c, int d) {
   return is_above(a, b, c) && is_above(a, b, d) && is_above(b, c, d) && is_above(b, c, d) && is_above(c, d, a) && is_above(c, d, b) && is_above(d, a, b) && is_above(d, a, c);
 }
 
-bool triangulation::is_convex(int p, triangle*  s, triangle * t) {
+bool triangulation::is_convex(int p, std::shared_ptr<triangle>  s, std::shared_ptr<triangle> t) {
 
   int s_type = triangle_type(s->vtx[0], s->vtx[1], s->vtx[2]);
   int t_type = triangle_type(t->vtx[0], t->vtx[1], t->vtx[2]);
@@ -500,3 +493,32 @@ bool triangulation::is_convex(int p, triangle*  s, triangle * t) {
   }
   return false;
 }
+
+// void triangulation::clean (triangle * root, triangle* t1, triangle * t2, triangle *t3) {
+//   //
+//   // if (root->children.size() == 0) {
+//   //   delete root->op[0];
+//   //   delete root->op[1];
+//   //   delete root->op[2];
+//   //   for (int i = 0; i < root->children.size(); ++i) {
+//   //     delete root->children[i];
+//   //   }
+//   // }
+//
+//   if (t1.children.size() == 0) {
+//     free(t1)
+//   }
+//
+//   for (int i = 0; i < root->children.size(); ++i) {
+//     clean(root->children[i]);
+//   }
+//
+//   if (root->children.size() == 0) {
+//     free(root);
+//   }
+//
+// }
+//
+// triangulation::~triangulation() {
+//   clean(root);
+// }

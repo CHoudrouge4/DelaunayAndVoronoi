@@ -20,7 +20,7 @@ std::vector<double> generate_points(const int n, double lower, double upper) {
 
 int main () {
 
-  auto pts = generate_points(10, -500.0, 500.0);
+  auto pts = generate_points(4, -100.0, 100.0);
   //std::vector<double> pts = {0.0, 0.0, 100, -100, 0, 100, 25, 50, 50, 200, 30, 30, 200, -100};
   //std::vector<double> pts = {287.921, -122.629,-235.922,-431.848,438.651,112.213,403.814,168.474,397.262,350.659,93.1628,-461.663,476.896,-138.15,-223.504,129.512,225.705,-279.949, -347.202, -480.913};
 

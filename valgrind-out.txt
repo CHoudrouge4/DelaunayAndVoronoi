@@ -1,0 +1,1555 @@
+==6502== Memcheck, a memory error detector
+==6502== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6502== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
+==6502== Command: ./del.exe
+==6502== Parent PID: 3495
+==6502== 
+--6502-- 
+--6502-- Valgrind options:
+--6502--    --leak-check=full
+--6502--    --show-leak-kinds=all
+--6502--    --track-origins=yes
+--6502--    --verbose
+--6502--    --log-file=valgrind-out.txt
+--6502-- Contents of /proc/version:
+--6502--   Linux version 5.13.0-39-generic (buildd@lcy02-amd64-080) (gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #44~20.04.1-Ubuntu SMP Thu Mar 24 16:43:35 UTC 2022
+--6502-- 
+--6502-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-rdtscp-sse3-ssse3-avx
+--6502-- Page sizes: currently 4096, max supported 4096
+--6502-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--6502-- Reading syms from /home/christo/projects/DelaunayAndVoronoi/del.exe
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
+--6502--   Considering /usr/lib/x86_64-linux-gnu/ld-2.31.so ..
+--6502--   .. CRC mismatch (computed 0306b78c wanted 8d362b37)
+--6502--   Considering /lib/x86_64-linux-gnu/ld-2.31.so ..
+--6502--   .. CRC mismatch (computed 0306b78c wanted 8d362b37)
+--6502--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so ..
+--6502--   .. CRC is valid
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--6502--    object doesn't have a symbol table
+--6502--    object doesn't have a dynamic symbol table
+--6502-- Scheduler: using generic scheduler lock implementation.
+--6502-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==6502== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-6502-by-christo-on-???
+==6502== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-6502-by-christo-on-???
+==6502== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-6502-by-christo-on-???
+==6502== 
+==6502== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==6502== don't want to do, unless you know exactly what you're doing,
+==6502== or are doing some strange experiment):
+==6502==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=6502 ...command...
+==6502== 
+==6502== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==6502==   /path/to/gdb ./del.exe
+==6502== and then give GDB the following command
+==6502==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=6502
+==6502== --pid is optional if only one valgrind process is running
+==6502== 
+--6502-- REDIR: 0x4022e10 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
+--6502-- REDIR: 0x4022be0 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--6502--    object doesn't have a symbol table
+==6502== WARNING: new redirection conflicts with existing -- ignoring it
+--6502--     old: 0x04022e10 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
+--6502--     new: 0x04022e10 (strlen              ) R-> (2007.0) 0x0483f060 strlen
+--6502-- REDIR: 0x401f5f0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
+--6502-- REDIR: 0x4023370 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libm-2.31.so
+--6502--   Considering /usr/lib/x86_64-linux-gnu/libm-2.31.so ..
+--6502--   .. CRC mismatch (computed 3cfca93f wanted 658b15c9)
+--6502--   Considering /lib/x86_64-linux-gnu/libm-2.31.so ..
+--6502--   .. CRC mismatch (computed 3cfca93f wanted 658b15c9)
+--6502--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.31.so ..
+--6502--   .. CRC is valid
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
+--6502--   Considering /usr/lib/x86_64-linux-gnu/libc-2.31.so ..
+--6502--   .. CRC mismatch (computed ef41b1a0 wanted f854b801)
+--6502--   Considering /lib/x86_64-linux-gnu/libc-2.31.so ..
+--6502--   .. CRC mismatch (computed ef41b1a0 wanted f854b801)
+--6502--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.31.so ..
+--6502--   .. CRC is valid
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libGL.so.1.7.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libfreetype.so.6.17.1
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXrandr.so.2.2.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libudev.so.1.6.17
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+--6502--   Considering /usr/lib/debug/.build-id/f0/983025f0e0f327a6da752ff4ffa675e0be393f.debug ..
+--6502--   .. build-id is valid
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libGLdispatch.so.0.0.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libpng16.so.16.37.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+--6502--   Considering /usr/lib/x86_64-linux-gnu/libdl-2.31.so ..
+--6502--   .. CRC mismatch (computed 2bb25318 wanted f334bb32)
+--6502--   Considering /lib/x86_64-linux-gnu/libdl-2.31.so ..
+--6502--   .. CRC mismatch (computed 2bb25318 wanted f334bb32)
+--6502--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libdl-2.31.so ..
+--6502--   .. CRC is valid
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+--6502--   Considering /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0 ..
+--6502--   .. CRC mismatch (computed 7e27e1ef wanted 4ab025b2)
+--6502--   Considering /lib/x86_64-linux-gnu/libXext.so.6.4.0 ..
+--6502--   .. CRC mismatch (computed 7e27e1ef wanted 4ab025b2)
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+--6502--   Considering /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0 ..
+--6502--   .. CRC mismatch (computed 7de9b6ad wanted e8a17129)
+--6502--   Considering /lib/x86_64-linux-gnu/libXau.so.6.0.0 ..
+--6502--   .. CRC mismatch (computed 7de9b6ad wanted e8a17129)
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libbsd.so.0.10.0
+--6502--    object doesn't have a symbol table
+--6502-- REDIR: 0x4ce44b0 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce37b0 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce47e0 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce30d0 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3810 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce5c80 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d00d10 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d00850 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4610 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4440 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3740 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3180 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4570 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d00810 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce36a0 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3260 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4830 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3200 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4980 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d01f80 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d00890 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3850 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3130 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3660 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4cecbd0 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4880 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4400 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d00960 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce3b10 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4780 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4720 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce5cc0 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce48d0 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4d71880 (libc.so.6:__memcpy_chk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4ce4320 (libc.so.6:strstr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4cf58e0 (libc.so.6:__strrchr_sse2) redirected to 0x483ea70 (__strrchr_sse2)
+--6502-- REDIR: 0x4cf5be0 (libc.so.6:__strlen_sse2) redirected to 0x483efa0 (__strlen_sse2)
+--6502-- REDIR: 0x4cdfb40 (libc.so.6:calloc) redirected to 0x483dce0 (calloc)
+--6502-- REDIR: 0x4cde110 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
+--6502-- REDIR: 0x4cdeeb0 (libc.so.6:realloc) redirected to 0x483df30 (realloc)
+--6502-- REDIR: 0x4cffaf0 (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4840100 (memcpy@GLIBC_2.2.5)
+--6502-- REDIR: 0x4cee3d0 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x483fed0 (strcmp)
+--6502-- REDIR: 0x4dd1460 (libc.so.6:__memcmp_sse4_1) redirected to 0x4842150 (__memcmp_sse4_1)
+--6502-- REDIR: 0x49a0b20 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x483bdf0 (operator new(unsigned long))
+--6502-- REDIR: 0x4cfff20 (libc.so.6:__memset_sse2_unaligned) redirected to 0x48428e0 (memset)
+--6502-- REDIR: 0x4cf56d0 (libc.so.6:__strchrnul_sse2) redirected to 0x4843540 (strchrnul)
+--6502-- REDIR: 0x4cffad0 (libc.so.6:__mempcpy_sse2_unaligned) redirected to 0x4843660 (mempcpy)
+--6502-- REDIR: 0x4cefee0 (libc.so.6:__memchr_sse2) redirected to 0x4840050 (memchr)
+--6502-- REDIR: 0x499ed70 (libstdc++.so.6:operator delete(void*)) redirected to 0x483cf50 (operator delete(void*))
+--6502-- REDIR: 0x4dc2bd0 (libc.so.6:__strncmp_sse42) redirected to 0x483f7c0 (__strncmp_sse42)
+--6502-- REDIR: 0x4cde700 (libc.so.6:free) redirected to 0x483c9d0 (free)
+--6502-- REDIR: 0x4d71c30 (libc.so.6:__strcpy_chk) redirected to 0x48435c0 (__strcpy_chk)
+--6502-- REDIR: 0x4ce3fd0 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
+--6502-- REDIR: 0x4cfb150 (libc.so.6:__strncpy_sse2_unaligned) redirected to 0x483f560 (__strncpy_sse2_unaligned)
+--6502-- REDIR: 0x4cf54a0 (libc.so.6:__strchr_sse2) redirected to 0x483eb90 (__strchr_sse2)
+--6502-- REDIR: 0x4dc79b0 (libc.so.6:__strspn_sse42) redirected to 0x4843ef0 (strspn)
+--6502-- REDIR: 0x4dc7730 (libc.so.6:__strcspn_sse42) redirected to 0x4843e10 (strcspn)
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.390.144
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/tls/libnvidia-tls.so.390.144
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libnvidia-glcore.so.390.144
+--6502--    object doesn't have a symbol table
+--6502-- REDIR: 0x4ce0860 (libc.so.6:posix_memalign) redirected to 0x483e1e0 (posix_memalign)
+--6502-- REDIR: 0x4dc8fb0 (libc.so.6:__strcasecmp_avx) redirected to 0x483f830 (strcasecmp)
+--6502-- REDIR: 0x4cfdb70 (libc.so.6:__strcat_sse2_unaligned) redirected to 0x483ec20 (strcat)
+--6502-- REDIR: 0x4cf5d80 (libc.so.6:__strnlen_sse2) redirected to 0x483eee0 (strnlen)
+--6502-- REDIR: 0x4cfab20 (libc.so.6:__strcpy_sse2_unaligned) redirected to 0x483f090 (strcpy)
+--6502-- REDIR: 0x4cff410 (libc.so.6:__strstr_sse2_unaligned) redirected to 0x4843c20 (strstr)
+--6502-- REDIR: 0x4cf0210 (libc.so.6:__rawmemchr_sse2) redirected to 0x4843580 (rawmemchr)
+--6502-- REDIR: 0x4ce36e0 (libc.so.6:strncat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--6502-- REDIR: 0x4cfe460 (libc.so.6:__strncat_sse2_unaligned) redirected to 0x483ede0 (strncat)
+--6502-- WARNING: Serious error when reading debug info
+--6502-- When reading debug info from /tmp/.glfe3a3O (deleted):
+--6502-- failed to stat64/stat this file
+--6502-- WARNING: Serious error when reading debug info
+--6502-- When reading debug info from /tmp/.glfe3a3O (deleted):
+--6502-- failed to stat64/stat this file
+--6502-- REDIR: 0x4cfc160 (libc.so.6:__stpcpy_sse2_unaligned) redirected to 0x4842570 (__stpcpy_sse2_unaligned)
+--6502-- REDIR: 0x4ce01e0 (libc.so.6:malloc_usable_size) redirected to 0x483e3b0 (malloc_usable_size)
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+--6502--    object doesn't have a symbol table
+--6502-- Reading syms from /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+--6502--    object doesn't have a symbol table
+--6502-- REDIR: 0x499ed80 (libstdc++.so.6:operator delete(void*, unsigned long)) redirected to 0x483d160 (operator delete(void*, unsigned long))
+==6502== 
+==6502== HEAP SUMMARY:
+==6502==     in use at exit: 39,631 bytes in 564 blocks
+==6502==   total heap usage: 16,504 allocs, 15,940 frees, 272,635,669 bytes allocated
+==6502== 
+==6502== Searching for pointers to 564 not-freed blocks
+==6502== Checked 4,651,672 bytes
+==6502== 
+==6502== 2 bytes in 1 blocks are still reachable in loss record 1 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4CE33BE: strdup (strdup.c:42)
+==6502==    by 0x4FD11A7: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 2 bytes in 1 blocks are still reachable in loss record 2 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4CE33BE: strdup (strdup.c:42)
+==6502==    by 0x4FCDD81: _XlcResolveLocaleName (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1387: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 7 bytes in 1 blocks are still reachable in loss record 3 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4CE33BE: strdup (strdup.c:42)
+==6502==    by 0x4FD1483: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 8 bytes in 1 blocks are still reachable in loss record 4 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FE2E59: _XimOpenIM (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6284: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7210: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502==    by 0x10AE99: main (main.cpp:57)
+==6502== 
+==6502== 12 bytes in 1 blocks are indirectly lost in loss record 5 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DC26: allocate (new_allocator.h:114)
+==6502==    by 0x10DC26: allocate (alloc_traits.h:443)
+==6502==    by 0x10DC26: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10DC26: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10DC26: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10DC26: vector (stl_vector.h:508)
+==6502==    by 0x10DC26: triangle (triangulation.h:18)
+==6502==    by 0x10DC26: init_root (triangulation.h:17)
+==6502==    by 0x10DC26: triangulation::triangulation(std::vector<double, std::allocator<double> > const&) (triangulation.cpp:81)
+==6502==    by 0x10AB37: main (main.cpp:27)
+==6502== 
+==6502== 12 bytes in 1 blocks are indirectly lost in loss record 6 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E919: allocate (new_allocator.h:114)
+==6502==    by 0x10E919: allocate (alloc_traits.h:443)
+==6502==    by 0x10E919: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E919: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E919: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E919: vector (stl_vector.h:508)
+==6502==    by 0x10E919: triangle (triangulation.h:18)
+==6502==    by 0x10E919: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 12 bytes in 1 blocks are indirectly lost in loss record 7 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9DE: allocate (new_allocator.h:114)
+==6502==    by 0x10E9DE: allocate (alloc_traits.h:443)
+==6502==    by 0x10E9DE: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E9DE: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E9DE: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E9DE: vector (stl_vector.h:508)
+==6502==    by 0x10E9DE: triangle (triangulation.h:18)
+==6502==    by 0x10E9DE: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 12 bytes in 1 blocks are indirectly lost in loss record 8 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E919: allocate (new_allocator.h:114)
+==6502==    by 0x10E919: allocate (alloc_traits.h:443)
+==6502==    by 0x10E919: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E919: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E919: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E919: vector (stl_vector.h:508)
+==6502==    by 0x10E919: triangle (triangulation.h:18)
+==6502==    by 0x10E919: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 12 bytes in 1 blocks are indirectly lost in loss record 9 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9DE: allocate (new_allocator.h:114)
+==6502==    by 0x10E9DE: allocate (alloc_traits.h:443)
+==6502==    by 0x10E9DE: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E9DE: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E9DE: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E9DE: vector (stl_vector.h:508)
+==6502==    by 0x10E9DE: triangle (triangulation.h:18)
+==6502==    by 0x10E9DE: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 16 bytes in 1 blocks are still reachable in loss record 10 of 105
+==6502==    at 0x483DFAF: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCEBCD: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCF06C: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0962: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 16 bytes in 2 blocks are still reachable in loss record 11 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCF559: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0962: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 16 bytes in 1 blocks are indirectly lost in loss record 12 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10EDBA: push_back (stl_vector.h:1195)
+==6502==    by 0x10EDBA: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:453)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 16 bytes in 1 blocks are indirectly lost in loss record 13 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10ED8A: push_back (stl_vector.h:1195)
+==6502==    by 0x10ED8A: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:455)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 16 bytes in 1 blocks are indirectly lost in loss record 14 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10EDBA: push_back (stl_vector.h:1195)
+==6502==    by 0x10EDBA: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:453)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 16 bytes in 1 blocks are indirectly lost in loss record 15 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10ED8A: push_back (stl_vector.h:1195)
+==6502==    by 0x10ED8A: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:455)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 24 bytes in 1 blocks are still reachable in loss record 16 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x5299351: XextCreateExtension (in /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0)
+==6502==    by 0x595B8C0: ??? (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.390.144)
+==6502==    by 0x59515AC: glXQueryExtensionsString (in /usr/lib/x86_64-linux-gnu/libGLX_nvidia.so.390.144)
+==6502==    by 0x48DA48F: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D9DE4: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CB3CE: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CD1E2: sf::Window::Window() (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48979DC: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502==    by 0x10AE99: main (main.cpp:57)
+==6502== 
+==6502== 24 bytes in 1 blocks are still reachable in loss record 17 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCE7B9: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1139: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 24 bytes in 1 blocks are still reachable in loss record 18 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FD89A7: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502==    by 0x10AE99: main (main.cpp:57)
+==6502== 
+==6502== 24 bytes in 1 blocks are indirectly lost in loss record 19 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DC5C: allocate (new_allocator.h:114)
+==6502==    by 0x10DC5C: allocate (alloc_traits.h:443)
+==6502==    by 0x10DC5C: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10DC5C: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10DC5C: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10DC5C: vector (stl_vector.h:508)
+==6502==    by 0x10DC5C: triangle (triangulation.h:19)
+==6502==    by 0x10DC5C: init_root (triangulation.h:17)
+==6502==    by 0x10DC5C: triangulation::triangulation(std::vector<double, std::allocator<double> > const&) (triangulation.cpp:81)
+==6502==    by 0x10AB37: main (main.cpp:27)
+==6502== 
+==6502== 24 bytes in 1 blocks are indirectly lost in loss record 20 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E94F: allocate (new_allocator.h:114)
+==6502==    by 0x10E94F: allocate (alloc_traits.h:443)
+==6502==    by 0x10E94F: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E94F: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E94F: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E94F: vector (stl_vector.h:508)
+==6502==    by 0x10E94F: triangle (triangulation.h:19)
+==6502==    by 0x10E94F: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 24 bytes in 1 blocks are indirectly lost in loss record 21 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10EA14: allocate (new_allocator.h:114)
+==6502==    by 0x10EA14: allocate (alloc_traits.h:443)
+==6502==    by 0x10EA14: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10EA14: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10EA14: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10EA14: vector (stl_vector.h:508)
+==6502==    by 0x10EA14: triangle (triangulation.h:19)
+==6502==    by 0x10EA14: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 24 bytes in 1 blocks are indirectly lost in loss record 22 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E94F: allocate (new_allocator.h:114)
+==6502==    by 0x10E94F: allocate (alloc_traits.h:443)
+==6502==    by 0x10E94F: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E94F: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E94F: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E94F: vector (stl_vector.h:508)
+==6502==    by 0x10E94F: triangle (triangulation.h:19)
+==6502==    by 0x10E94F: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 24 bytes in 1 blocks are indirectly lost in loss record 23 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10EA14: allocate (new_allocator.h:114)
+==6502==    by 0x10EA14: allocate (alloc_traits.h:443)
+==6502==    by 0x10EA14: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10EA14: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10EA14: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10EA14: vector (stl_vector.h:508)
+==6502==    by 0x10EA14: triangle (triangulation.h:19)
+==6502==    by 0x10EA14: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 32 bytes in 1 blocks are still reachable in loss record 24 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FC264E: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FC2F1A: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FC3C50: XrmGetStringDatabase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4F9FA4C: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4F9FCE5: XGetDefault (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x99AE262: _XcursorGetDisplayInfo (in /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2)
+==6502==    by 0x99AE2DC: XcursorSupportsARGB (in /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2)
+==6502==    by 0x99B0D84: XcursorNoticeCreateBitmap (in /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2)
+==6502==    by 0x4F9A250: XCreatePixmap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D2D01: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D6400: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 36 bytes in 3 blocks are indirectly lost in loss record 25 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E919: allocate (new_allocator.h:114)
+==6502==    by 0x10E919: allocate (alloc_traits.h:443)
+==6502==    by 0x10E919: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E919: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E919: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E919: vector (stl_vector.h:508)
+==6502==    by 0x10E919: triangle (triangulation.h:18)
+==6502==    by 0x10E919: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 36 bytes in 3 blocks are indirectly lost in loss record 26 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9DE: allocate (new_allocator.h:114)
+==6502==    by 0x10E9DE: allocate (alloc_traits.h:443)
+==6502==    by 0x10E9DE: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E9DE: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E9DE: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E9DE: vector (stl_vector.h:508)
+==6502==    by 0x10E9DE: triangle (triangulation.h:18)
+==6502==    by 0x10E9DE: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 36 bytes in 3 blocks are indirectly lost in loss record 27 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E919: allocate (new_allocator.h:114)
+==6502==    by 0x10E919: allocate (alloc_traits.h:443)
+==6502==    by 0x10E919: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E919: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E919: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E919: vector (stl_vector.h:508)
+==6502==    by 0x10E919: triangle (triangulation.h:18)
+==6502==    by 0x10E919: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 36 bytes in 3 blocks are indirectly lost in loss record 28 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9DE: allocate (new_allocator.h:114)
+==6502==    by 0x10E9DE: allocate (alloc_traits.h:443)
+==6502==    by 0x10E9DE: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E9DE: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E9DE: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E9DE: vector (stl_vector.h:508)
+==6502==    by 0x10E9DE: triangle (triangulation.h:18)
+==6502==    by 0x10E9DE: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 40 bytes in 1 blocks are still reachable in loss record 29 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCD399: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 47 bytes in 5 blocks are still reachable in loss record 30 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCAE68: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 48 bytes in 3 blocks are indirectly lost in loss record 31 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10EDBA: push_back (stl_vector.h:1195)
+==6502==    by 0x10EDBA: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:453)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 48 bytes in 3 blocks are indirectly lost in loss record 32 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10ED8A: push_back (stl_vector.h:1195)
+==6502==    by 0x10ED8A: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:455)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 48 bytes in 3 blocks are indirectly lost in loss record 33 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10EDBA: push_back (stl_vector.h:1195)
+==6502==    by 0x10EDBA: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:453)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 48 bytes in 3 blocks are indirectly lost in loss record 34 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10ED8A: push_back (stl_vector.h:1195)
+==6502==    by 0x10ED8A: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:455)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 35 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FB126B: _XrmInternalStringToQuark (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB17C: _XlcGetCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCAD9C: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 36 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB103: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 37 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB121: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 38 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB13F: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 39 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB15D: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 40 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE69E: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 41 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE6BE: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 42 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE6DE: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 43 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE6FE: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 44 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE71E: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 45 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE73E: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 46 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE75E: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 47 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE77E: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 48 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE79E: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 49 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7BE: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 50 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7DE: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 51 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD80A4: _XlcAddUtf8Converters (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 52 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD80C4: _XlcAddUtf8Converters (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 53 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD80E4: _XlcAddUtf8Converters (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 54 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8104: _XlcAddUtf8Converters (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 55 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8124: _XlcAddUtf8Converters (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 56 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8144: _XlcAddUtf8Converters (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 64 bytes in 1 blocks are still reachable in loss record 57 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB8C2: _XlcSetConverter (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE7E6: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x4897A14: sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1)
+==6502== 
+==6502== 72 bytes in 1 blocks are indirectly lost in loss record 58 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E8F1: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:416)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 1 blocks are indirectly lost in loss record 59 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9B6: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:421)
+==6502==    by 0x10EF3C: triangulation::compute_delaunay() (triangulation.cpp:396)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 1 blocks are indirectly lost in loss record 60 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E8F1: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:416)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 1 blocks are indirectly lost in loss record 61 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9B6: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:421)
+==6502==    by 0x10ED31: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:464)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 3 blocks are indirectly lost in loss record 62 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E94F: allocate (new_allocator.h:114)
+==6502==    by 0x10E94F: allocate (alloc_traits.h:443)
+==6502==    by 0x10E94F: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E94F: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E94F: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E94F: vector (stl_vector.h:508)
+==6502==    by 0x10E94F: triangle (triangulation.h:19)
+==6502==    by 0x10E94F: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 3 blocks are indirectly lost in loss record 63 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10EA14: allocate (new_allocator.h:114)
+==6502==    by 0x10EA14: allocate (alloc_traits.h:443)
+==6502==    by 0x10EA14: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10EA14: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10EA14: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10EA14: vector (stl_vector.h:508)
+==6502==    by 0x10EA14: triangle (triangulation.h:19)
+==6502==    by 0x10EA14: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 3 blocks are indirectly lost in loss record 64 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E94F: allocate (new_allocator.h:114)
+==6502==    by 0x10E94F: allocate (alloc_traits.h:443)
+==6502==    by 0x10E94F: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E94F: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E94F: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E94F: vector (stl_vector.h:508)
+==6502==    by 0x10E94F: triangle (triangulation.h:19)
+==6502==    by 0x10E94F: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 72 bytes in 3 blocks are indirectly lost in loss record 65 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10EA14: allocate (new_allocator.h:114)
+==6502==    by 0x10EA14: allocate (alloc_traits.h:443)
+==6502==    by 0x10EA14: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10EA14: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10EA14: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10EA14: vector (stl_vector.h:508)
+==6502==    by 0x10EA14: triangle (triangulation.h:19)
+==6502==    by 0x10EA14: triangulation::legalize(int, triangle*, triangle*) (triangulation.h:17)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 79 bytes in 2 blocks are still reachable in loss record 66 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x401F5CE: strdup (strdup.c:42)
+==6502==    by 0x4019A81: _dl_load_cache_lookup (dl-cache.c:338)
+==6502==    by 0x400A989: _dl_map_object (dl-load.c:2102)
+==6502==    by 0x4015D36: dl_open_worker (dl-open.c:513)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x4DA4902: _dl_catch_error (dl-error-skeleton.c:227)
+==6502==    by 0x5286B58: _dlerror_run (dlerror.c:170)
+==6502==    by 0x52863D9: dlopen@@GLIBC_2.2.5 (dlopen.c:87)
+==6502== 
+==6502== 79 bytes in 2 blocks are still reachable in loss record 67 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x400D5A7: _dl_new_object (dl-object.c:196)
+==6502==    by 0x4006E96: _dl_map_object_from_fd (dl-load.c:997)
+==6502==    by 0x400A61A: _dl_map_object (dl-load.c:2236)
+==6502==    by 0x4015D36: dl_open_worker (dl-open.c:513)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x4DA4902: _dl_catch_error (dl-error-skeleton.c:227)
+==6502==    by 0x5286B58: _dlerror_run (dlerror.c:170)
+==6502==    by 0x52863D9: dlopen@@GLIBC_2.2.5 (dlopen.c:87)
+==6502== 
+==6502== 108 bytes in 9 blocks are indirectly lost in loss record 68 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DE96: allocate (new_allocator.h:114)
+==6502==    by 0x10DE96: allocate (alloc_traits.h:443)
+==6502==    by 0x10DE96: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10DE96: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10DE96: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10DE96: vector (stl_vector.h:508)
+==6502==    by 0x10DE96: triangle (triangulation.h:18)
+==6502==    by 0x10DE96: triangulation::add_point(int) (triangulation.h:17)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 108 bytes in 9 blocks are indirectly lost in loss record 69 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DFB0: allocate (new_allocator.h:114)
+==6502==    by 0x10DFB0: allocate (alloc_traits.h:443)
+==6502==    by 0x10DFB0: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10DFB0: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10DFB0: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10DFB0: vector (stl_vector.h:508)
+==6502==    by 0x10DFB0: triangle (triangulation.h:18)
+==6502==    by 0x10DFB0: triangulation::add_point(int) (triangulation.h:17)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 108 bytes in 9 blocks are indirectly lost in loss record 70 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E0C1: allocate (new_allocator.h:114)
+==6502==    by 0x10E0C1: allocate (alloc_traits.h:443)
+==6502==    by 0x10E0C1: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E0C1: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E0C1: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E0C1: vector (stl_vector.h:508)
+==6502==    by 0x10E0C1: triangle (triangulation.h:18)
+==6502==    by 0x10E0C1: triangulation::add_point(int) (triangulation.h:17)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 138 bytes in 3 blocks are still reachable in loss record 71 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x401F5CE: strdup (strdup.c:42)
+==6502==    by 0x4019A81: _dl_load_cache_lookup (dl-cache.c:338)
+==6502==    by 0x400A989: _dl_map_object (dl-load.c:2102)
+==6502==    by 0x400F504: openaux (dl-deps.c:64)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x400F952: _dl_map_object_deps (dl-deps.c:248)
+==6502==    by 0x4015D9F: dl_open_worker (dl-open.c:571)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502== 
+==6502== 138 bytes in 3 blocks are still reachable in loss record 72 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x400D5A7: _dl_new_object (dl-object.c:196)
+==6502==    by 0x4006E96: _dl_map_object_from_fd (dl-load.c:997)
+==6502==    by 0x400A61A: _dl_map_object (dl-load.c:2236)
+==6502==    by 0x400F504: openaux (dl-deps.c:64)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x400F952: _dl_map_object_deps (dl-deps.c:248)
+==6502==    by 0x4015D9F: dl_open_worker (dl-open.c:571)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502== 
+==6502== 142 bytes in 18 blocks are still reachable in loss record 73 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCBE5A: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCE54: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCF70: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCD297: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 160 bytes in 2 blocks are still reachable in loss record 74 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCEB9E: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCF06C: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0962: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 168 bytes in 1 blocks are still reachable in loss record 75 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCE7EF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1139: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 176 bytes in 1 blocks are still reachable in loss record 76 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCE7D4: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1139: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDCE5: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48CDAD4: sf::Window::create(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&) (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 216 bytes in 18 blocks are still reachable in loss record 77 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4CE33BE: strdup (strdup.c:42)
+==6502==    by 0x4FCCC59: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCF70: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCD297: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 216 bytes in 3 blocks are indirectly lost in loss record 78 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E8F1: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:416)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 216 bytes in 3 blocks are indirectly lost in loss record 79 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9B6: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:421)
+==6502==    by 0x10EF96: triangulation::compute_delaunay() (triangulation.cpp:400)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 216 bytes in 3 blocks are indirectly lost in loss record 80 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E8F1: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:416)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 216 bytes in 3 blocks are indirectly lost in loss record 81 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E9B6: triangulation::legalize(int, triangle*, triangle*) (triangulation.cpp:421)
+==6502==    by 0x10EEE4: triangulation::compute_delaunay() (triangulation.cpp:391)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 216 bytes in 9 blocks are indirectly lost in loss record 82 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DECC: allocate (new_allocator.h:114)
+==6502==    by 0x10DECC: allocate (alloc_traits.h:443)
+==6502==    by 0x10DECC: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10DECC: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10DECC: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10DECC: vector (stl_vector.h:508)
+==6502==    by 0x10DECC: triangle (triangulation.h:19)
+==6502==    by 0x10DECC: triangulation::add_point(int) (triangulation.h:17)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 216 bytes in 9 blocks are indirectly lost in loss record 83 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DFE6: allocate (new_allocator.h:114)
+==6502==    by 0x10DFE6: allocate (alloc_traits.h:443)
+==6502==    by 0x10DFE6: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10DFE6: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10DFE6: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10DFE6: vector (stl_vector.h:508)
+==6502==    by 0x10DFE6: triangle (triangulation.h:19)
+==6502==    by 0x10DFE6: triangulation::add_point(int) (triangulation.h:17)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 216 bytes in 9 blocks are indirectly lost in loss record 84 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E0F7: allocate (new_allocator.h:114)
+==6502==    by 0x10E0F7: allocate (alloc_traits.h:443)
+==6502==    by 0x10E0F7: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10E0F7: _M_create_storage (stl_vector.h:358)
+==6502==    by 0x10E0F7: _Vector_base (stl_vector.h:302)
+==6502==    by 0x10E0F7: vector (stl_vector.h:508)
+==6502==    by 0x10E0F7: triangle (triangulation.h:19)
+==6502==    by 0x10E0F7: triangulation::add_point(int) (triangulation.h:17)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 264 bytes in 2 blocks are still reachable in loss record 85 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x401330A: _dl_check_map_versions (dl-version.c:274)
+==6502==    by 0x40160EC: dl_open_worker (dl-open.c:577)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x4DA4902: _dl_catch_error (dl-error-skeleton.c:227)
+==6502==    by 0x5286B58: _dlerror_run (dlerror.c:170)
+==6502==    by 0x52863D9: dlopen@@GLIBC_2.2.5 (dlopen.c:87)
+==6502==    by 0x4F99AC1: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4F99BEE: _XNoticeCreateBitmap (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 274 bytes in 18 blocks are still reachable in loss record 86 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4CE33BE: strdup (strdup.c:42)
+==6502==    by 0x4FCCDD7: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCF70: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCD297: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 288 bytes in 3 blocks are still reachable in loss record 87 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x401330A: _dl_check_map_versions (dl-version.c:274)
+==6502==    by 0x40160EC: dl_open_worker (dl-open.c:577)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x4DA4902: _dl_catch_error (dl-error-skeleton.c:227)
+==6502==    by 0x5286B58: _dlerror_run (dlerror.c:170)
+==6502==    by 0x52863D9: dlopen@@GLIBC_2.2.5 (dlopen.c:87)
+==6502==    by 0x51DA1F1: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
+==6502==    by 0x51DB5E4: ??? (in /usr/lib/x86_64-linux-gnu/libGLX.so.0.0.0)
+==6502== 
+==6502== 288 bytes in 18 blocks are still reachable in loss record 88 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCBE36: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCE54: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCF70: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCD297: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 288 bytes in 9 blocks are indirectly lost in loss record 89 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10F7E5: allocate (new_allocator.h:114)
+==6502==    by 0x10F7E5: allocate (alloc_traits.h:443)
+==6502==    by 0x10F7E5: _M_allocate (stl_vector.h:343)
+==6502==    by 0x10F7E5: void std::vector<triangle*, std::allocator<triangle*> >::_M_realloc_insert<triangle* const&>(__gnu_cxx::__normal_iterator<triangle**, std::vector<triangle*, std::allocator<triangle*> > >, triangle* const&) (vector.tcc:440)
+==6502==    by 0x10E3DC: push_back (stl_vector.h:1195)
+==6502==    by 0x10E3DC: triangulation::add_point(int) (triangulation.cpp:237)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 456 bytes in 1 blocks are still reachable in loss record 90 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCD33F: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 633 bytes in 49 blocks are still reachable in loss record 91 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB4A1: _XlcCreateDefaultCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB042: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 648 bytes in 9 blocks are indirectly lost in loss record 92 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DE6E: triangulation::add_point(int) (triangulation.cpp:215)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 648 bytes in 9 blocks are indirectly lost in loss record 93 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DF88: triangulation::add_point(int) (triangulation.cpp:224)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 648 bytes in 9 blocks are indirectly lost in loss record 94 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10E099: triangulation::add_point(int) (triangulation.cpp:233)
+==6502==    by 0x10EE8F: triangulation::compute_delaunay() (triangulation.cpp:388)
+==6502==    by 0x10AB3F: main (main.cpp:33)
+==6502== 
+==6502== 720 bytes in 18 blocks are still reachable in loss record 95 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCCC41: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCCF70: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCD297: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FEE664: _XlcDefaultLoader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 800 bytes in 50 blocks are still reachable in loss record 96 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB239: _XlcAddCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB056: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 1,028 bytes in 50 blocks are still reachable in loss record 97 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB434: _XlcCreateDefaultCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB042: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 2,048 bytes in 1 blocks are still reachable in loss record 98 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCD4A6: _XlcCreateLocaleDataBase (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD13BF: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502==    by 0x48D7208: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 2,403 bytes in 2 blocks are still reachable in loss record 99 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x400D273: _dl_new_object (dl-object.c:89)
+==6502==    by 0x4006E96: _dl_map_object_from_fd (dl-load.c:997)
+==6502==    by 0x400A61A: _dl_map_object (dl-load.c:2236)
+==6502==    by 0x4015D36: dl_open_worker (dl-open.c:513)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x4DA4902: _dl_catch_error (dl-error-skeleton.c:227)
+==6502==    by 0x5286B58: _dlerror_run (dlerror.c:170)
+==6502==    by 0x52863D9: dlopen@@GLIBC_2.2.5 (dlopen.c:87)
+==6502== 
+==6502== 2,631 bytes in 50 blocks are still reachable in loss record 100 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCADCF: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x48D6B32: ??? (in /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1)
+==6502== 
+==6502== 3,600 bytes in 50 blocks are still reachable in loss record 101 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FCB406: _XlcCreateDefaultCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB042: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD965E: Xutf8SetWMProperties (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 3,620 bytes in 3 blocks are still reachable in loss record 102 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x400D273: _dl_new_object (dl-object.c:89)
+==6502==    by 0x4006E96: _dl_map_object_from_fd (dl-load.c:997)
+==6502==    by 0x400A61A: _dl_map_object (dl-load.c:2236)
+==6502==    by 0x400F504: openaux (dl-deps.c:64)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x400F952: _dl_map_object_deps (dl-deps.c:248)
+==6502==    by 0x4015D9F: dl_open_worker (dl-open.c:571)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502==    by 0x40155F9: _dl_open (dl-open.c:837)
+==6502==    by 0x528634B: dlopen_doit (dlopen.c:66)
+==6502==    by 0x4DA4837: _dl_catch_exception (dl-error-skeleton.c:208)
+==6502== 
+==6502== 4,096 bytes in 1 blocks are still reachable in loss record 103 of 105
+==6502==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FB10AC: _XrmInternalStringToQuark (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB17C: _XlcGetCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCAD9C: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8DCE: Xutf8TextListToTextProperty (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== 5,296 (72 direct, 5,224 indirect) bytes in 1 blocks are definitely lost in loss record 104 of 105
+==6502==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x10DBFE: init_root (triangulation.cpp:65)
+==6502==    by 0x10DBFE: triangulation::triangulation(std::vector<double, std::allocator<double> > const&) (triangulation.cpp:81)
+==6502==    by 0x10AB37: main (main.cpp:27)
+==6502== 
+==6502== 8,176 bytes in 1 blocks are still reachable in loss record 105 of 105
+==6502==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6502==    by 0x4FB0E65: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FB108C: _XrmInternalStringToQuark (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB17C: _XlcGetCharSet (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCAD9C: _XlcAddCT (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FCB0C7: _XlcInitCTInfo (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD1276: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD0956: ??? (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD115C: _XlcCreateLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FF2694: _XlcUtf8Loader (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8995: _XOpenLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502==    by 0x4FD8ACC: _XlcCurrentLC (in /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0)
+==6502== 
+==6502== LEAK SUMMARY:
+==6502==    definitely lost: 72 bytes in 1 blocks
+==6502==    indirectly lost: 5,224 bytes in 156 blocks
+==6502==      possibly lost: 0 bytes in 0 blocks
+==6502==    still reachable: 34,335 bytes in 407 blocks
+==6502==         suppressed: 0 bytes in 0 blocks
+==6502== 
+==6502== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

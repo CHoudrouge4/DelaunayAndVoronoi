@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <memory>
 #define x first
 #define y second
 
@@ -11,14 +12,22 @@ typedef std::pair<double, double> edge;
 typedef std::pair<double, double> point;
 
 struct triangle {
+
   std::vector<int> vtx;
-  std::vector<triangle*> op;
-  std::vector<triangle*> children;
+  std::vector<std::shared_ptr<triangle>> op;
+  std::vector<std::shared_ptr<triangle>> children;
   triangle() {
     vtx = std::vector<int>(3);
-    op = std::vector<triangle*>(3);
+    op = std::vector<std::shared_ptr<triangle>>(3);
   }
 
+  // ~triangle() {
+  //
+  //   // for(int i = 0; i < children.size(); i++) {
+  //   //   if(children[i] != nullptr)
+  //   //     free(children[i]);
+  //   // }
+  // }
 };
 
 
@@ -33,7 +42,7 @@ private:
 //  hierarchy h;
   void read_file(const std::string & file_name);
   void find_p_zero();
-  triangle* root;
+  std::shared_ptr<triangle> root;
   // Boundary edges
 
 public:
@@ -49,19 +58,21 @@ public:
   bool is_lexico_larger(const int p, const int q) const;
   bool is_above(const int a, const int b, const int p) const;
   bool is_inside_triangle(const int a, const int b, const int c, const int p);
-  triangle* locate_point(const int p, triangle* root);
-  triangle* add_point(const int p);
-  void get_triangles(triangle * root, std::vector<triangle*> &results);
-  std::vector<triangle*> get_triangles();
+  std::shared_ptr<triangle> locate_point(const int p, std::shared_ptr<triangle> root);
+  std::shared_ptr<triangle> add_point(const int p);
+  void get_triangles(std::shared_ptr<triangle> root, std::vector<std::shared_ptr<triangle>> &results);
+  std::vector<std::shared_ptr<triangle>> get_triangles();
   point mid_point(const int a, const int b) const;
   double cross(const double vx, const double vy, const  int c) const;
   double cross_d(const double vx, const double vy, const  double cx, const double cy) const;
   point circumcircle(const int a, const int b, const int c) const;
   bool is_legal(const int a, const int b, const int c, const int d) const;
   void compute_delaunay();
-  void legalize(int p_index, triangle* s, triangle* t);
-  bool legalizable(int p, triangle * s, triangle *t);
+  void legalize(int p_index, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t);
+  bool legalizable(int p, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t);
   int get_p_0();
   bool is_convex(int a, int b, int c, int d);
-  bool is_convex(int p, triangle*  s, triangle * t);
+  bool is_convex(int p, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t);
+  //~triangulation();
+  void clean(std::shared_ptr<triangle> root);
 };
