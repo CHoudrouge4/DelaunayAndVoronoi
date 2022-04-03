@@ -60,5 +60,8 @@ public:
   bool is_legal(const int a, const int b, const int c, const int d) const;
   void compute_delaunay();
   void legalize(int p_index, triangle* s, triangle* t);
+  bool legalizable(int p, triangle * s, triangle *t);
   int get_p_0();
+  bool is_convex(int a, int b, int c, int d);
+  bool is_convex(int p, triangle*  s, triangle * t);
 };

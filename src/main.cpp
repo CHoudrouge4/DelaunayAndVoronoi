@@ -20,22 +20,26 @@ std::vector<double> generate_points(const int n, double lower, double upper) {
 
 int main () {
 
-  auto pts = generate_points(10, -100.0, 100.0);
+  auto pts = generate_points(10, -500.0, 500.0);
   //std::vector<double> pts = {0.0, 0.0, 100, -100, 0, 100, 25, 50, 50, 200, 30, 30, 200, -100};
-  //std::vector<double> pts = {-37.0752, 38.7575, 78.0524,30.3614, 4.0041,-30.7034, -8.72772, -28.2299};
-  triangulation h(pts);
-  for (int i = 0; i < pts.size(); i += 2) {
-     if(i == h.get_p_0()) continue;
-     h.add_point(i);
-  }
+  //std::vector<double> pts = {287.921, -122.629,-235.922,-431.848,438.651,112.213,403.814,168.474,397.262,350.659,93.1628,-461.663,476.896,-138.15,-223.504,129.512,225.705,-279.949, -347.202, -480.913};
 
-  //h.compute_delaunay();
+  triangulation h(pts);
+  //  for (int i = 0; i < pts.size(); i += 2) {
+  //     if(i == h.get_p_0()) continue;
+  //     h.add_point(i);
+  // }
+
+  h.compute_delaunay();
 
   auto triangles = h.get_triangles();
   for (int i = 0; i < triangles.size(); ++i) {
-    std::cout << "T: " << pts[triangles[i]->vtx[0]] << ' '<< pts[triangles[i]->vtx[0] + 1]
-    << ' ' << pts[triangles[i]->vtx[1]] << ' ' << pts[triangles[i]->vtx[1] + 1]
-    << ' ' << pts[triangles[i]->vtx[2]] << ' ' << pts[triangles[i]->vtx[2] + 1] << std::endl;
+    // std::cout << "T: " << pts[triangles[i]->vtx[0]] << ' '<< pts[triangles[i]->vtx[0] + 1]
+    // << ' ' << pts[triangles[i]->vtx[1]] << ' ' << pts[triangles[i]->vtx[1] + 1]
+    // << ' ' << pts[triangles[i]->vtx[2]] << ' ' << pts[triangles[i]->vtx[2] + 1] << std::endl;
+
+    std::cout << "T: " << triangles[i]->vtx[0] << ' ' << triangles[i]->vtx[1] << ' ' << triangles[i]->vtx[2] << std::endl;
+
     auto p = h.circumcircle(triangles[i]->vtx[0], triangles[i]->vtx[1], triangles[i]->vtx[2]);
     std::cout << "center of T: " << p.x << ' ' << p.y << std::endl;
     // for (int j = 0; j < 3; ++j)
