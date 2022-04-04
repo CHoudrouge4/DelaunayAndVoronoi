@@ -75,4 +75,5 @@ public:
   bool is_convex(int p, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t);
   //~triangulation();
   void clean(std::shared_ptr<triangle> root);
+  std::string points_to_string(int p);
 };

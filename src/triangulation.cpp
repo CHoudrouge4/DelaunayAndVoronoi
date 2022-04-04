@@ -7,6 +7,7 @@
 #include <cassert>
 #include <set>
 #include <memory>
+#include <sstream>
 
 void print_triangle(std::shared_ptr<triangle> t, std::string s) {
   std::cout << s << ' ' << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
@@ -110,9 +111,11 @@ bool triangulation::is_inside_triangle(const int a, const int b, const int c, co
      else return true;
   }
 
+  // this is worrying
   if (a == -2) {
-    if (is_lexico_larger(c, p)) return false;
-    else if (is_above(c, b, p)) return false;
+    if (is_above(c, b, p)) return false;
+    else if (is_lexico_larger(c, p)) return false;
+    else if (is_lexico_larger(p, b)) return false;
     else return true;
   }
 
@@ -133,6 +136,14 @@ void swap(int &a, int &b) {
   b = tmp;
 }
 
+std::string triangulation::points_to_string(int p) {
+  std::ostringstream o;
+  o << p << ' ';
+  if (p < 0) return o.str();
+  o << points[p] << ' ' << points[p + 1] << ' ';
+  return o.str();
+}
+
 std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_ptr<triangle> root) {
 
   int a = root->vtx[0];
@@ -142,7 +153,6 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
     swap(a, b);
     swap(b, c);
   } else if (c == -2) {
-    std::cout << "yes: c = -2 " <<std::endl;
     swap(a, c);
     swap(b, c);
   }
@@ -154,7 +164,7 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
     swap(b, c);
     swap(c, a);
   }
-  std::cout << "a " << a << " b: " << b << " c: " << c << std::endl;
+  std::cout << points_to_string(a) << points_to_string(b) << points_to_string(c) << std::endl;
   if (is_inside_triangle(a, b, c, p)) {
 
     if (root->children.size() == 0) return root;
@@ -168,7 +178,6 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
         swap(a, b);
         swap(b, c);
       } else if (c == -2) {
-        std::cout << "yes: c = -2 " <<std::endl;
         swap(a, c);
         swap(b, c);
       }
@@ -180,7 +189,7 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
         swap(b, c);
         swap(c, a);
       }
-      std::cout << "a: " << a << " b: " << b << " c: " << c << std::endl;
+      std::cout << points_to_string(a) << points_to_string(b) << points_to_string(c) << std::endl;
       if(is_inside_triangle(a, b, c, p)) {
           return locate_point(p, root->children[i]);
       }
@@ -190,7 +199,6 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
 }
 
 int get_oposite(std::shared_ptr<triangle> t, int a, int b) {
-  std::cout << "a: " << a << " b: " << b << std::endl;
   int op = 0;
   while (a == t->vtx[op] || b ==  t->vtx[op]) op = cw(op);
   return op;
@@ -198,7 +206,7 @@ int get_oposite(std::shared_ptr<triangle> t, int a, int b) {
 
 // it needs more checking
 std::shared_ptr<triangle> triangulation::add_point(const int p) {
-  std::cout << "adding " << p << std::endl;
+  std::cout << "adding " << points_to_string(p) << std::endl;
 
   std::shared_ptr<triangle> t = locate_point(p, root);
   if (t == nullptr) std::cout << "nullptr" << std::endl;
@@ -210,7 +218,6 @@ std::shared_ptr<triangle> triangulation::add_point(const int p) {
   first->vtx[ccw(0)] = t->vtx[ccw(0)];
   first->vtx[cw(0)] = p;
 
-  print_triangle(first, "first");
   t->children.push_back(first);
 
   // second triangle
@@ -219,7 +226,6 @@ std::shared_ptr<triangle> triangulation::add_point(const int p) {
   second->vtx[ccw(0)] = t->vtx[ccw(0)];
   second->vtx[cw(0)] = t->vtx[cw(0)];
 
-  print_triangle(second, "second");
   t->children.push_back(second);
 
   // third triangle
@@ -228,7 +234,6 @@ std::shared_ptr<triangle> triangulation::add_point(const int p) {
   third->vtx[ccw(0)] = p;
   third->vtx[cw(0)] = t->vtx[cw(0)];
   t->children.push_back(third);
-  print_triangle(third, "third");
 
   first->op[0] = second;
   first->op[ccw(0)] = third;
@@ -350,7 +355,6 @@ bool triangulation::is_legal(const int a, const int b, const int c, const int d)
   double dxc = (points[d] - center.x);
   double dyc = (points[d + 1] - center.y);
   double distance = dxc * dxc + dyc * dyc;
-  std::cout << "raduis: " << raduis << ' ' << distance << std::endl;
   return (raduis < distance);
 }
 
@@ -398,12 +402,12 @@ void triangulation::compute_delaunay() {
 
 // p_index in s, it is 0 (second), cw(0) first, or ccw(0) third
 void triangulation::legalize(int p_index, std::shared_ptr<triangle> s, std::shared_ptr<triangle> t) {
-  std::cout << "legalizing" << std::endl;
-  print_triangle(s, "left legal");
-  print_triangle(t, "right legal");
+  // std::cout << "legalizing" << std::endl;
+  // print_triangle(s, "left legal");
+  // print_triangle(t, "right legal");
   int op_index = get_oposite(t, s->vtx[cw(p_index)], s->vtx[ccw(p_index)]);
-  std::cout << "p_ index is " << p_index << ' ' << s->vtx[p_index] << std::endl;
-  std::cout << "we get the opposite index " << op_index << ' ' << t->vtx[op_index] << std::endl;
+  // std::cout << "p_ index is " << p_index << ' ' << s->vtx[p_index] << std::endl;
+  // std::cout << "we get the opposite index " << op_index << ' ' << t->vtx[op_index] << std::endl;
   if(!is_legal(s->vtx[p_index], s->vtx[cw(p_index)], s->vtx[ccw(p_index)], t->vtx[op_index])) {
     // create two new triangles
     std::shared_ptr<triangle> r1 = std::make_shared<triangle>();
@@ -447,9 +451,9 @@ void triangulation::legalize(int p_index, std::shared_ptr<triangle> s, std::shar
     t->children.push_back(r1);
     t->children.push_back(r2);
 
-    print_triangle(r1, "r1");
-//  print_triangle(t->op[ccw(op_index)], "r1 0 op");
-    print_triangle(r2, "r2");
+//     print_triangle(r1, "r1");
+// //  print_triangle(t->op[ccw(op_index)], "r1 0 op");
+//     print_triangle(r2, "r2");
 
     if(legalizable(0, r1, r1->op[0]))
       legalize(0, r1, r1->op[0]);
