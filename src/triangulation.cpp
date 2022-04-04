@@ -71,7 +71,7 @@ triangulation::triangulation(const std::vector<double> & pts) {
     std::cout << points[i] << std::endl;
   }
   find_p_zero();
-  std::cout << "p_0 = (" << points[p_0] << ", " << points[p_0 + 1] << ")\n";
+  //std::cout << "p_0 = (" << points[p_0] << ", " << points[p_0 + 1] << ")\n";
   init_root();
 }
 
@@ -164,13 +164,13 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
     swap(b, c);
     swap(c, a);
   }
-  std::cout << points_to_string(a) << points_to_string(b) << points_to_string(c) << std::endl;
+//  std::cout << points_to_string(a) << points_to_string(b) << points_to_string(c) << std::endl;
   if (is_inside_triangle(a, b, c, p)) {
 
     if (root->children.size() == 0) return root;
 
     for(int i = 0; i < root->children.size(); ++i) {
-      print_triangle(root->children[i], "testing triangle " + std::to_string(i));
+    //  print_triangle(root->children[i], "testing triangle " + std::to_string(i));
       int a = root->children[i]->vtx[0];
       int b = root->children[i]->vtx[ccw(0)];
       int c = root->children[i]->vtx[cw(0)];
@@ -189,7 +189,7 @@ std::shared_ptr<triangle> triangulation::locate_point(const int p, std::shared_p
         swap(b, c);
         swap(c, a);
       }
-      std::cout << points_to_string(a) << points_to_string(b) << points_to_string(c) << std::endl;
+      //std::cout << points_to_string(a) << points_to_string(b) << points_to_string(c) << std::endl;
       if(is_inside_triangle(a, b, c, p)) {
           return locate_point(p, root->children[i]);
       }
@@ -206,11 +206,11 @@ int get_oposite(std::shared_ptr<triangle> t, int a, int b) {
 
 // it needs more checking
 std::shared_ptr<triangle> triangulation::add_point(const int p) {
-  std::cout << "adding " << points_to_string(p) << std::endl;
+  //std::cout << "adding " << points_to_string(p) << std::endl;
 
   std::shared_ptr<triangle> t = locate_point(p, root);
   if (t == nullptr) std::cout << "nullptr" << std::endl;
-  else std::cout << "we found t" << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
+  //else std::cout << "we found t" << t->vtx[0] << ' ' << t->vtx[ccw(0)] << ' ' << t->vtx[cw(0)] << std::endl;
 
   // first triangle
   std::shared_ptr<triangle> first = std::make_shared<triangle>();
